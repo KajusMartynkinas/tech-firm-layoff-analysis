@@ -79,7 +79,7 @@ and the localized economic impacts of job cuts.
 
 ### Amount of Layoffs by Countries
 
-![Amount of Layoffs by Countries](results/graph5.png)
+![Amount of Layoffs by Countries](results/graph5.PNG)
 
 This map visualizes the geographical distribution of layoffs across the globe, 
 with data points represented by circles whose size corresponds to the number of layoffs in that location. 
