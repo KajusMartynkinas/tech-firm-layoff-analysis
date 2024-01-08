@@ -3,7 +3,7 @@ import sqlite3
 import matplotlib.pyplot as plt
 
 # Load the CSV file into a pandas DataFrame
-csv_file_path = 'C:/Users/Aero/Downloads/archive/layoffs.csv'  # Update this to the path of your CSV file
+csv_file_path = 'layoffs.csv'  # Update this to the path of your CSV file
 df = pd.read_csv(csv_file_path)
 conn = sqlite3.connect(':memory:')
 df.to_sql('layoffs', conn, index=False, if_exists='replace')
