@@ -7,6 +7,7 @@ csv_file_path = 'layoffs.csv'  # Update this to the path of your CSV file
 df = pd.read_csv(csv_file_path)
 conn = sqlite3.connect(':memory:')
 df.to_sql('layoffs', conn, index=False, if_exists='replace')
+plt.style.use('dark_background')
 
 # Define and execute an SQL query
 # query = "SELECT * FROM layoffs WHERE total_laid_off > 100"  # Example query
@@ -23,12 +24,11 @@ while True:
         LIMIT 10
         """
         top_industries = pd.read_sql_query(company_count, conn)
-        plt.style.use('dark_background')
         plt.figure(figsize=(12, 6))
         plt.bar(top_industries['industry'], top_industries['company_count'], color='cyan')
         plt.xlabel('Industry')
         plt.ylabel('Number of Companies with Layoffs')
-        plt.title('Top 10 Industries with the Highest Count of Companies Having Layoffs')
+        plt.title('Top 10 Industries with the Highest Count of Companies With Layoffs')
         plt.xticks(rotation=45)
         plt.tight_layout()
         plt.show()
@@ -41,11 +41,10 @@ while True:
         FROM layoffs 
         WHERE total_laid_off >= 1
         GROUP BY company
-        ORDER BY sum_laid_off DESC
+        ORDER BY sum_of_laid_off DESC
         LIMIT 10
         """
         top_companies = pd.read_sql_query(layoff_count, conn)
-        plt.style.use('dark_background')
         plt.figure(figsize=(12, 6))
         plt.bar(top_companies['company'], top_companies['sum_of_laid_off'], color='cyan')
         plt.xlabel('Company')
@@ -72,7 +71,6 @@ while True:
         ORDER BY year_quarter
         """
         quarterly_layoff_result = pd.read_sql_query(layoff_count, conn)
-        plt.style.use('dark_background')
         plt.figure(figsize=(12, 6))
         plt.bar(quarterly_layoff_result['year_quarter'], quarterly_layoff_result['sum_laid_off'], color='cyan')
         plt.xlabel('Quarter')
@@ -94,7 +92,6 @@ while True:
         LIMIT 10
         """
         top_countries = pd.read_sql_query(layoff_count, conn)
-        plt.style.use('dark_background')
         plt.figure(figsize=(12, 6))
         plt.bar(top_countries['location'], top_countries['sum_of_laid_off'], color='cyan')
         plt.xlabel('Location')
@@ -106,7 +103,7 @@ while True:
 
 
     print("Select the graph that you want to be displayed:")
-    print("1: Top 10 Industries with the Highest Count of Companies Having Layoffs")
+    print("1: Top 10 Industries with the Highest Count of Companies With Layoffs")
     print("2: Top 10 Companies with the Highest Sum of Layoffs")
     print("3: Total Layoffs by Quarter")
     print("4: Top 10 Locations with the Highest Sum of Layoffs")
@@ -127,7 +124,3 @@ while True:
         break
     else:
         print('Incorrect choice. Try again: \n')
-
-    # Display the result
-    # print(result)
-    # result.to_csv('layoffs0.csv')
