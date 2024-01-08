@@ -2,19 +2,16 @@ import pandas as pd
 import sqlite3
 import matplotlib.pyplot as plt
 
-# Load the CSV file into a pandas DataFrame
-csv_file_path = 'layoffs.csv'  # Update this to the path of your CSV file
+
+csv_file_path = 'layoffs.csv'
 df = pd.read_csv(csv_file_path)
 conn = sqlite3.connect(':memory:')
 df.to_sql('layoffs', conn, index=False, if_exists='replace')
 plt.style.use('dark_background')
 
-# Define and execute an SQL query
-# query = "SELECT * FROM layoffs WHERE total_laid_off > 100"  # Example query
 
 while True:
-
-    #Which Industries had the most componies with layoffs
+    #Top 10 Industries with the Highest Count of Companies With Layoffs
     def show_1():
         company_count="""
         SELECT industry, COUNT(DISTINCT company) as company_count
@@ -34,7 +31,7 @@ while True:
         plt.show()
 
 
-    #Companies with most layoffs
+    #Top 10 Companies with the Highest Sum of Layoffs
     def show_2():
         layoff_count="""
         SELECT company, SUM(total_laid_off) AS sum_of_laid_off
@@ -55,7 +52,7 @@ while True:
         plt.show()
 
 
-    #Layoffs by Yearly Quarters from 2020 to 2024
+    #Total Layoffs by Quarter
     def show_3():
         layoff_count = """
         SELECT strftime('%Y', date) || '-' || CASE 
@@ -81,7 +78,7 @@ while True:
         plt.show()
 
 
-    #Locations with most layoffs
+    #Top 10 Locations with the Highest Sum of Layoffs
     def show_4():
         layoff_count="""
         SELECT location, SUM(total_laid_off) AS sum_of_laid_off
